@@ -1,7 +1,6 @@
 package aufgabenMitEingabe;
 
 import java.io.BufferedReader;
-import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
