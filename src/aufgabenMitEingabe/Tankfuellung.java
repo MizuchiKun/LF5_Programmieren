@@ -10,8 +10,6 @@ import java.util.Locale;
 public class Tankfuellung {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        final DecimalFormat germanEuroFormat = new DecimalFormat("#,##0.00 €",
-                                                                 new DecimalFormatSymbols(Locale.GERMAN));
 
         System.out.print("Getankte Liter: ");
         float litres = Float.parseFloat(reader.readLine().trim());
@@ -19,6 +17,8 @@ public class Tankfuellung {
         float pricePerLitre = Float.parseFloat(reader.readLine().trim());
         float netPrice = litres * pricePerLitre;
 
+        final DecimalFormat germanEuroFormat = new DecimalFormat("#,##0.00 €",
+                                                                 new DecimalFormatSymbols(Locale.GERMAN));
         final float TAX_RATE = 0.19f;
         float taxAmount = TAX_RATE * netPrice;
         float grossPrice = netPrice + taxAmount;
