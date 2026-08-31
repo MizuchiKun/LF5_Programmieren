@@ -20,10 +20,10 @@ public class Rechner {
         double power = Math.pow(firstNumber, secondNumber);
 
         System.out.println();
-        System.out.printf("%.1f + %.1f = %.1f!\n", firstNumber, secondNumber, sum);
-        System.out.printf("%.1f - %.1f = %.1f!\n", firstNumber, secondNumber, difference);
-        System.out.printf("%.1f * %.1f = %.1f!\n", firstNumber, secondNumber, product);
-        System.out.printf("%.1f / %.1f = %.1f!\n", firstNumber, secondNumber, quotient);
-        System.out.printf("%.1f ** %.1f = %.1f!\n", firstNumber, secondNumber, power);
+        System.out.printf("%.1f + %.1f = %.1f\n", firstNumber, secondNumber, sum);
+        System.out.printf("%.1f - %.1f = %.1f\n", firstNumber, secondNumber, difference);
+        System.out.printf("%.1f * %.1f = %.1f\n", firstNumber, secondNumber, product);
+        System.out.printf("%.1f / %.1f = %.1f\n", firstNumber, secondNumber, quotient);
+        System.out.printf("%.1f ** %.1f = %.1f\n", firstNumber, secondNumber, power);
     }
 }
