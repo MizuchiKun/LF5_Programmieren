@@ -10,7 +10,7 @@ public class BMI {
 
         System.out.print("Gewicht (in kg)? ");
         float weight = Float.parseFloat(reader.readLine().trim());
-        System.out.print("Koerpergroesze (in cm)? ");
+        System.out.print("Körpergröße (in cm)? ");
         float height = Integer.parseInt(reader.readLine().trim()) / 100f;
         System.out.print("Geschlecht (m/w)? ");
         char sex = Character.toLowerCase(reader.readLine().charAt(0));
@@ -39,7 +39,7 @@ public class BMI {
         }
         else if (bmi < BMI_LOWER_LIMIT_OBESITY2)
         {
-            System.out.printf("BMI %.2f: %s\n", bmi, "Uebergewicht");
+            System.out.printf("BMI %.2f: %s\n", bmi, "Übergewicht");
         }
         else if (bmi < BMI_LOWER_LIMIT_OBESITY3)
         {

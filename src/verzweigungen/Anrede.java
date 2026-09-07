@@ -12,7 +12,7 @@ public class Anrede {
         String firstName = reader.readLine().trim();
         System.out.print("Wie ist dein Nachname?? ");
         String lastName = reader.readLine().trim();
-        System.out.print("Was ist dein Geschlecht (1=maennlich, 2=weiblich, 3=divers)?? ");
+        System.out.print("Was ist dein Geschlecht (1=männlich, 2=weiblich, 3=divers)?? ");
         int genderInput = Integer.parseInt(reader.readLine().trim());
 
         final int GENDER_MALE = 1;
