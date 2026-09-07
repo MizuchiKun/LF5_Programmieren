@@ -1,4 +1,4 @@
-package aufgabenMitEingabe;
+package einUndAusgabe;
 
 import java.io.BufferedReader;
 import java.io.IOException;
