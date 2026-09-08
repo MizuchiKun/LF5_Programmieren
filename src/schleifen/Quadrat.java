@@ -8,10 +8,15 @@ public class Quadrat {
     public static void main(String[] args) throws IOException {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.print("Wie groß soll das Quadrat sein (>0)? ");
+        System.out.print("Wie groß soll das Quadrat sein? ");
         int width = Integer.parseInt(reader.readLine().trim());
+        if (width <= 0)
+        {
+            System.out.printf("Fehler: Quadrat kann nicht %d breit sein!", width);
+            return;
+        }
 
-        String square = "";
+        StringBuilder square = new StringBuilder();
         for (int y = 0; y < width; y++)
         {
             for (int x = 0; x < width; x++)
@@ -19,17 +24,17 @@ public class Quadrat {
                 if (y == 0 || y == width - 1
                     || x == 0 || x == width - 1)
                 {
-                    square += '口';
+                    square.append('口');
                 }
                 else
                 {
-                    square += '　';
+                    square.append('　');
                 }
             }
 
             if (y != width - 1)
             {
-                square += '\n';
+                square.append('\n');
             }
         }
 
