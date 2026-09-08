@@ -15,8 +15,8 @@ public class Wurzel {
 
         for (int x = rangeStart; x <= rangeEnd; x++)
         {
-            int xSquared = x * x;
-            System.out.printf("%d^2 = %d\n", x, xSquared);
+            float xRoot = (float)Math.sqrt(x);
+            System.out.printf("Root of %d = %.2f\n", x, xRoot);
         }
     }
 }
