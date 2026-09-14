@@ -127,7 +127,7 @@ public class UserInput {
     //endregion
 
     //region Integers
-    /** Reads a long/integer from the user via. console.<br/>
+    /** Reads a long from the user via. console.<br/>
      *  Input will only be accepted once it meets the criteria.
      *
      * @param prompt The input prompt message to show the user.
@@ -155,6 +155,88 @@ public class UserInput {
         } while (!inputMeetsCriteria);
 
         return inputLong;
+    }
+
+    /** Reads a long from the user via. the console.<br/>
+     *  Input will be trimmed.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @return The user input long.
+     */
+    public static long readLong(String prompt) {
+        return readLong(prompt, NO_CRITERIA_LONG, "");
+    }
+
+    /** Reads an int from the user via. console.<br/>
+     *  Input will only be accepted once it meets the criteria.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @param criteria The criteria for the entered user input.
+     * @param errorMessage A message to be displayed to the user if their input did not meet the criteria.
+     * @return The user input int.
+     */
+    public static int readInt(String prompt,
+                              Predicate<Long> criteria,
+                              String errorMessage) {
+        return (int)readLong(prompt, criteria, errorMessage);
+    }
+
+    /** Reads an int from the user via. the console.<br/>
+     *  Input will be trimmed.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @return The user input int.
+     */
+    public static int readInt(String prompt) {
+        return readInt(prompt, NO_CRITERIA_LONG, "");
+    }
+
+    /** Reads a short from the user via. console.<br/>
+     *  Input will only be accepted once it meets the criteria.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @param criteria The criteria for the entered user input.
+     * @param errorMessage A message to be displayed to the user if their input did not meet the criteria.
+     * @return The user input short.
+     */
+    public static short readShort(String prompt,
+                                  Predicate<Long> criteria,
+                                  String errorMessage) {
+        return (short)readLong(prompt, criteria, errorMessage);
+    }
+
+    /** Reads a short from the user via. the console.<br/>
+     *  Input will be trimmed.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @return The user input short.
+     */
+    public static short readShort(String prompt) {
+        return readShort(prompt, NO_CRITERIA_LONG, "");
+    }
+
+    /** Reads a byte from the user via. console.<br/>
+     *  Input will only be accepted once it meets the criteria.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @param criteria The criteria for the entered user input.
+     * @param errorMessage A message to be displayed to the user if their input did not meet the criteria.
+     * @return The user input byte.
+     */
+    public static byte readByte(String prompt,
+                                Predicate<Long> criteria,
+                                String errorMessage) {
+        return (byte)readLong(prompt, criteria, errorMessage);
+    }
+
+    /** Reads a byte from the user via. the console.<br/>
+     *  Input will be trimmed.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @return The user input byte.
+     */
+    public static byte readByte(String prompt) {
+        return readByte(prompt, NO_CRITERIA_LONG, "");
     }
     //endregion
 
