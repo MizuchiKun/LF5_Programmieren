@@ -8,14 +8,11 @@ import java.util.function.Predicate;
 public class UserInput {
     private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
-    // How to write function for e.g. readString, ReadInt, etc. with a predicate parameter to check if entered
-    // value meets criteria, while accounting for possible exceptions?
-    // There could be e.g. NumberFormatExceptions in the predicate when trying to parse numbers.
-    // Maybe just catch any Exception and print an error message and/or repeat loop?
-    // Though it seems I'll likely only encounter NumberFormatExceptions, when parsing numbers,
-    // which I'll just do for the caller in to-be-done methods in this class, so . . .
+    private static final Predicate<String> NO_CRITERIA_STRING = (String) -> true;
+    private static final Predicate<Double> NO_CRITERIA_DOUBLE = (Double) -> true;
+    private static final Predicate<Long> NO_CRITERIA_LONG = (Double) -> true;
 
-
+    //region String
     /** Reads a String from the user via. the console.<br/>
      *  Input will be trimmed, and only be accepted, once it meets the given criteria.
      *
@@ -59,40 +56,11 @@ public class UserInput {
      * @return The user input String.
      */
     public static String readString(String prompt) {
-        final Predicate<String> NO_CRITERIA = (String) -> true;
-        return readString(prompt, NO_CRITERIA, "");
+        return readString(prompt, NO_CRITERIA_STRING, "");
     }
+    //endregion
 
-    /** Reads a long/integer from the user via. console.<br/>
-     *  Input will only be accepted once it meets the criteria.
-     *
-     * @param prompt The input prompt message to show the user.
-     * @param criteria The criteria for the entered user input.
-     * @param errorMessage A message to be displayed to the user if their input did not meet the criteria.
-     * @return The user input long.
-     */
-    public static long readLong(String prompt,
-                                Predicate<Long> criteria,
-                                String errorMessage) {
-        long inputLong = -1;
-        boolean inputMeetsCriteria = false;
-        do {
-            try {
-                String inputString = readString(prompt);
-                inputLong = Long.parseLong(inputString);
-
-                inputMeetsCriteria = criteria.test(inputLong);
-                if (!inputMeetsCriteria) {
-                    System.out.print(errorMessage);
-                }
-            } catch (NumberFormatException e) {
-                System.out.print(errorMessage);
-            }
-        } while (!inputMeetsCriteria);
-
-        return inputLong;
-    }
-
+    //region Floats
     /** Reads a double from the user via. console.<br/>
      *  Input will only be accepted once it meets the criteria.
      *
@@ -122,6 +90,73 @@ public class UserInput {
 
         return inputDouble;
     }
+
+    /** Reads a double from the user via. the console.<br/>
+     *  Input will be trimmed.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @return The user input double.
+     */
+    public static double readDouble(String prompt) {
+        return readDouble(prompt, NO_CRITERIA_DOUBLE, "");
+    }
+
+    /** Reads a float from the user via. console.<br/>
+     *  Input will only be accepted once it meets the criteria.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @param criteria The criteria for the entered user input.
+     * @param errorMessage A message to be displayed to the user if their input did not meet the criteria.
+     * @return The user input float.
+     */
+    public static float readFloat(String prompt,
+                                  Predicate<Double> criteria,
+                                  String errorMessage) {
+        return (float)readDouble(prompt, criteria, errorMessage);
+    }
+
+    /** Reads a double from the user via. the console.<br/>
+     *  Input will be trimmed.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @return The user input double.
+     */
+    public static float readFloat(String prompt) {
+        return readFloat(prompt, NO_CRITERIA_DOUBLE, "");
+    }
+    //endregion
+
+    //region Integers
+    /** Reads a long/integer from the user via. console.<br/>
+     *  Input will only be accepted once it meets the criteria.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @param criteria The criteria for the entered user input.
+     * @param errorMessage A message to be displayed to the user if their input did not meet the criteria.
+     * @return The user input long.
+     */
+    public static long readLong(String prompt,
+                                Predicate<Long> criteria,
+                                String errorMessage) {
+        long inputLong = -1;
+        boolean inputMeetsCriteria = false;
+        do {
+            try {
+                String inputString = readString(prompt);
+                inputLong = Long.parseLong(inputString);
+
+                inputMeetsCriteria = criteria.test(inputLong);
+                if (!inputMeetsCriteria) {
+                    System.out.print(errorMessage);
+                }
+            } catch (NumberFormatException e) {
+                System.out.print(errorMessage);
+            }
+        } while (!inputMeetsCriteria);
+
+        return inputLong;
+    }
+    //endregion
 
     /** Just does stuff for testing. **/
     public static void main(String[] args) {
