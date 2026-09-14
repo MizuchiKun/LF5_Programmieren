@@ -63,10 +63,70 @@ public class UserInput {
         return readString(prompt, NO_CRITERIA, "");
     }
 
+    /** Reads a long/integer from the user via. console.<br/>
+     *  Input will only be accepted once it meets the criteria.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @param criteria The criteria for the entered user input.
+     * @param errorMessage A message to be displayed to the user if their input did not meet the criteria.
+     * @return The user input long.
+     */
+    public static long readLong(String prompt,
+                                Predicate<Long> criteria,
+                                String errorMessage) {
+        long inputLong = -1;
+        boolean inputMeetsCriteria = false;
+        do {
+            try {
+                String inputString = readString(prompt);
+                inputLong = Long.parseLong(inputString);
+
+                inputMeetsCriteria = criteria.test(inputLong);
+                if (!inputMeetsCriteria) {
+                    System.out.print(errorMessage);
+                }
+            } catch (NumberFormatException e) {
+                System.out.print(errorMessage);
+            }
+        } while (!inputMeetsCriteria);
+
+        return inputLong;
+    }
+
+    /** Reads a double from the user via. console.<br/>
+     *  Input will only be accepted once it meets the criteria.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @param criteria The criteria for the entered user input.
+     * @param errorMessage A message to be displayed to the user if their input did not meet the criteria.
+     * @return The user input double.
+     */
+    public static double readDouble(String prompt,
+                                    Predicate<Double> criteria,
+                                    String errorMessage) {
+        double inputDouble = -1;
+        boolean inputMeetsCriteria = false;
+        do {
+            try {
+                String inputString = readString(prompt);
+                inputDouble = Double.parseDouble(inputString);
+
+                inputMeetsCriteria = criteria.test(inputDouble);
+                if (!inputMeetsCriteria) {
+                    System.out.print(errorMessage);
+                }
+            } catch (NumberFormatException e) {
+                System.out.print(errorMessage);
+            }
+        } while (!inputMeetsCriteria);
+
+        return inputDouble;
+    }
+
     /** Just does stuff for testing. **/
     public static void main(String[] args) {
-        readString("Gimme a String: ",
-                   (String input) -> input.length() >= 5,
-                   "String must be at least 5 characters long.\n");
+        readDouble("Gimme a double >5.5: ",
+                   (Double input) -> input > 5.5,
+                   "(Double must be >5.5.)\n");
     }
 }
