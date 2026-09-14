@@ -6,14 +6,13 @@ import java.io.InputStreamReader;
 
 public class GeometrischeReihe {
     public static void main(String[] args) throws IOException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.print("Geometrische Reihe bis zu welchem n berechnen? ");
-        int n = Integer.parseInt(reader.readLine().trim());
+        int n = Integer.parseInt(READER.readLine().trim());
 
         float geometricSeries = 0;
-        for (int i = 1 ; i <= n; i++)
-        {
+        for (int i = 1 ; i <= n; i++) {
             geometricSeries += (float)(1 / Math.pow(2, i));
         }
 

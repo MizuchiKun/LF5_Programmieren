@@ -12,9 +12,10 @@ public class Fahrenheit {
         float tempCelsius = Float.parseFloat(reader.readLine().trim());
         float tempFahrenheit = (tempCelsius * 9/5f) + 32f;
 
-        if (tempCelsius <= 40f)
+        if (tempCelsius <= 40f) {
             System.out.printf("%.2f °C sind %.2f °F.\n", tempCelsius, tempFahrenheit);
-        else
+        } else {
             System.out.println("You call that hot??");
+        }
     }
 }
