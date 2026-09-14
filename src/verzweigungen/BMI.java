@@ -6,14 +6,14 @@ import java.io.InputStreamReader;
 
 public class BMI {
     public static void main(String[] args) throws IOException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.print("Gewicht (in kg)? ");
-        float weight = Float.parseFloat(reader.readLine().trim());
-        System.out.print("Koerpergroesze (in cm)? ");
-        float height = Integer.parseInt(reader.readLine().trim()) / 100f;
+        float weight = Float.parseFloat(READER.readLine().trim());
+        System.out.print("Körpergröße (in cm)? ");
+        float height = Integer.parseInt(READER.readLine().trim()) / 100f;
         System.out.print("Geschlecht (m/w)? ");
-        char sex = Character.toLowerCase(reader.readLine().charAt(0));
+        char sex = Character.toLowerCase(READER.readLine().charAt(0));
 
         final char SEX_MALE = 'm';
         final char SEX_FEMALE = 'w';
@@ -28,25 +28,16 @@ public class BMI {
         boolean isFemale = sex == SEX_FEMALE;
 
         if ((isMale && bmi < BMI_LOWER_LIMIT_MALE_NORMAL_WEIGHT)
-            || (isFemale && bmi < BMI_LOWER_LIMIT_FEMALE_NORMAL_WEIGHT))
-        {
+            || (isFemale && bmi < BMI_LOWER_LIMIT_FEMALE_NORMAL_WEIGHT)) {
             System.out.printf("BMI %.2f: %s\n", bmi, "Untergewicht");
-        }
-        else if ((isMale && bmi < BMI_LOWER_LIMIT_MALE_OBESITY1)
-                || (isFemale && bmi < BMI_LOWER_LIMIT_FEMALE_OBESITY1))
-        {
+        } else if ((isMale && bmi < BMI_LOWER_LIMIT_MALE_OBESITY1)
+                   || (isFemale && bmi < BMI_LOWER_LIMIT_FEMALE_OBESITY1)) {
             System.out.printf("BMI %.2f: %s\n", bmi, "Normalgewicht");
-        }
-        else if (bmi < BMI_LOWER_LIMIT_OBESITY2)
-        {
-            System.out.printf("BMI %.2f: %s\n", bmi, "Uebergewicht");
-        }
-        else if (bmi < BMI_LOWER_LIMIT_OBESITY3)
-        {
+        } else if (bmi < BMI_LOWER_LIMIT_OBESITY2) {
+            System.out.printf("BMI %.2f: %s\n", bmi, "Übergewicht");
+        } else if (bmi < BMI_LOWER_LIMIT_OBESITY3) {
             System.out.printf("BMI %.2f: %s\n", bmi, "Adipositas");
-        }
-        else
-        {
+        } else {
             System.out.printf("BMI %.2f: %s\n", bmi, "Starke Adipositas");
         }
     }

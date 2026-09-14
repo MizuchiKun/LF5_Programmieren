@@ -13,9 +13,10 @@ public class HelloWorld {
         System.out.println("Oy, schreib' was!");
         String text = reader.readLine();
 
-        if (Objects.equals(text, "Java"))
+        if (text.equals("Java")) {
             System.out.println("Hamster!");
-        else
+        } else {
             System.out.println(text);
+        }
     }
 }

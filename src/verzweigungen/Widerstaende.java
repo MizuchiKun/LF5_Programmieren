@@ -6,19 +6,18 @@ import java.io.InputStreamReader;
 
 public class Widerstaende {
     public static void main(String[] args) throws IOException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.print("Widerstand 1? ");
-        float resistance1 = Float.parseFloat(reader.readLine().trim());
+        float resistance1 = Float.parseFloat(READER.readLine().trim());
         System.out.print("Widerstand 2? ");
-        float resistance2 = Float.parseFloat(reader.readLine().trim());
+        float resistance2 = Float.parseFloat(READER.readLine().trim());
         System.out.print("Schaltungsart (P=Parallel, R=Reihe)? ");
-        char circuitType = reader.readLine().trim().toUpperCase().charAt(0);
+        char circuitType = READER.readLine().trim().toUpperCase().charAt(0);
 
         final char CIRCUIT_PARALLEL = 'P';
         final char CIRCUIT_SERIES = 'R';
-        switch (circuitType)
-        {
+        switch (circuitType) {
             case CIRCUIT_PARALLEL:
                 float totalResistanceParallel = (resistance1 * resistance2) / (resistance1 + resistance2);
                 System.out.printf("Gesamtwiderstand: %.2f\n", totalResistanceParallel);

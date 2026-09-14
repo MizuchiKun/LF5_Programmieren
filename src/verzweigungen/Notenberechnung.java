@@ -9,12 +9,12 @@ import java.util.Locale;
 
 public class Notenberechnung {
     public static void main(String[] args) throws IOException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.print("Wie viele Punkte können erreicht werden? ");
-        float maxPoints = Float.parseFloat(reader.readLine().trim());
+        float maxPoints = Float.parseFloat(READER.readLine().trim());
         System.out.print("Wie viele Punkte hast du erreicht? ");
-        float earnedPoints = Float.parseFloat(reader.readLine().trim());
+        float earnedPoints = Float.parseFloat(READER.readLine().trim());
 
         final float MARK_1_REQUIREMENT = 0.92f;
         final float MARK_2_REQUIREMENT = 0.81f;
@@ -23,38 +23,28 @@ public class Notenberechnung {
         final float MARK_5_REQUIREMENT = 0.30f;
         float markPercentage = earnedPoints / maxPoints;
         float mark = 0f;
-        if (markPercentage >= MARK_1_REQUIREMENT)
-        {
+        if (markPercentage >= MARK_1_REQUIREMENT) {
             mark = 1f;
-        }
-        else if (markPercentage >= MARK_2_REQUIREMENT)
-        {
+        } else if (markPercentage >= MARK_2_REQUIREMENT) {
             mark = 2f;
-        }
-        else if (markPercentage >= MARK_3_REQUIREMENT)
-        {
+        } else if (markPercentage >= MARK_3_REQUIREMENT) {
             mark = 3f;
-        }
-        else if (markPercentage >= MARK_4_REQUIREMENT)
-        {
+        } else if (markPercentage >= MARK_4_REQUIREMENT) {
             mark = 4f;
-        }
-        else if (markPercentage >= MARK_5_REQUIREMENT)
-        {
+        } else if (markPercentage >= MARK_5_REQUIREMENT) {
             mark = 5f;
-        }
-        else
-        {
+        } else {
             mark = 6f;
         }
 
-        final DecimalFormat germanPercentageFormat = new DecimalFormat("#,##0.00%",
-                                                                       new DecimalFormatSymbols(Locale.GERMAN));
+        final DecimalFormat GERMAN_PERCENTAGE_FORMAT = new DecimalFormat("#,##0.00%",
+                                                                         new DecimalFormatSymbols(Locale.GERMAN));
 
-        System.out.printf("Du hast %s und damit die Note %.0f erreicht.\n", germanPercentageFormat.format(markPercentage), mark);
+        System.out.printf("Du hast %s und damit die Note %.0f erreicht.\n",
+                          GERMAN_PERCENTAGE_FORMAT.format(markPercentage),
+                          mark);
 
-        if (markPercentage > 1f)
-        {
+        if (markPercentage > 1f) {
             System.out.println("Fehler: Erreichte Punktzahl ist höher als maximale Punktzahl!");
             System.out.println("(Was bist du denn für'n Streber??)");
         }
