@@ -14,7 +14,7 @@ public class UserInput {
 
     //region String
     /** Reads a String from the user via. the console.<br/>
-     *  Input will be trimmed, and only be accepted, once it meets the given criteria.
+     *  Input will be trimmed, and only accepted, once it meets the criteria.
      *
      * @param prompt The input prompt message to show the user.
      * @param criteria The criteria for the entered user input.
@@ -24,8 +24,6 @@ public class UserInput {
     public static String readString(String prompt,
                                     Predicate<String> criteria,
                                     String errorMessage) {
-        // input should have an acceptable value after the loop but the error checker didn't think so, hence the null initialisation.
-        // Better solution to this issue?
         String input = null;
         boolean inputMeetsCriteria = false;
         do {
@@ -115,11 +113,11 @@ public class UserInput {
         return (float)readDouble(prompt, criteria, errorMessage);
     }
 
-    /** Reads a double from the user via. the console.<br/>
+    /** Reads a float from the user via. the console.<br/>
      *  Input will be trimmed.
      *
      * @param prompt The input prompt message to show the user.
-     * @return The user input double.
+     * @return The user input float.
      */
     public static float readFloat(String prompt) {
         return readFloat(prompt, NO_CRITERIA_DOUBLE, "");
@@ -239,11 +237,4 @@ public class UserInput {
         return readByte(prompt, NO_CRITERIA_LONG, "");
     }
     //endregion
-
-    /** Just does stuff for testing. **/
-    public static void main(String[] args) {
-        readDouble("Gimme a double >5.5: ",
-                   (Double input) -> input > 5.5,
-                   "(Double must be >5.5.)\n");
-    }
 }
