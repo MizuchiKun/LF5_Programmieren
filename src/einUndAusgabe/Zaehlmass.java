@@ -6,10 +6,10 @@ import java.io.InputStreamReader;
 
 public class Zaehlmass {
     public static void main(String[] args) throws IOException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.print("Geben Sie die Zahl ein: ");
-        int inputNumber = Integer.parseInt(reader.readLine().trim());
+        int inputNumber = Integer.parseInt(READER.readLine().trim());
 
         final int GROS = 144;
         final int SCHOCK = 60;

@@ -8,8 +8,7 @@ public class DatumValidierer {
      * @param year  The year of the date.
      * @return  True if the date is valid, false otherwise.
      */
-    public static boolean validiereDatum(int day, int month, int year)
-    {
+    public static boolean validiereDatum(int day, int month, int year) {
         return false;
     }
 

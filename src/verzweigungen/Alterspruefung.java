@@ -6,18 +6,15 @@ import java.io.InputStreamReader;
 
 public class Alterspruefung {
     public static void main(String[] args) throws IOException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.print("Wie alt bist du?? ");
-        int age = Integer.parseInt(reader.readLine().trim());
+        int age = Integer.parseInt(READER.readLine().trim());
 
         final int LEGAL_AGE = 18;
-        if (age >= LEGAL_AGE)
-        {
+        if (age >= LEGAL_AGE) {
             System.out.println("Volljährig!!");
-        }
-        else
-        {
+        } else {
             System.out.println("Minderjährig!!");
         }
     }

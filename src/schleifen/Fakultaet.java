@@ -6,14 +6,13 @@ import java.io.InputStreamReader;
 
 public class Fakultaet {
     public static void main(String[] args) throws IOException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.print("Gebe n ein um n! zu berechnen (n <= 20): ");
-        int n = Integer.parseInt(reader.readLine().trim());
+        int n = Integer.parseInt(READER.readLine().trim());
 
         long factorial = 1;
-        for (long i = 1; i <= n; i++)
-        {
+        for (long i = 1; i <= n; i++) {
             factorial *= i;
             System.out.printf("%d! = %d\n", i, factorial);
         }
