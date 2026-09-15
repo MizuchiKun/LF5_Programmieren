@@ -42,8 +42,7 @@ public class Schaltjahr {
                 System.out.println(year);
             }
 
-            String repeatInput = UserInput.readString("Do another calculation(y/n)? ");
-            repeatCalculation = repeatInput.toLowerCase().startsWith("y");
+            repeatCalculation = UserInput.readBoolean("Do another calculation (y/n)? ");
         } while (repeatCalculation);
     }
 }
