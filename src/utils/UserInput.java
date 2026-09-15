@@ -3,6 +3,7 @@ package utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Locale;
 import java.util.function.Predicate;
 
 public class UserInput {
@@ -91,8 +92,7 @@ public class UserInput {
         return inputDouble;
     }
 
-    /** Reads a double from the user via. the console.<br/>
-     *  Input will be trimmed.
+    /** Reads a double from the user via. the console.
      *
      * @param prompt The input prompt message to show the user.
      * @return The user input double.
@@ -115,8 +115,7 @@ public class UserInput {
         return (float)readDouble(prompt, criteria, errorMessage);
     }
 
-    /** Reads a float from the user via. the console.<br/>
-     *  Input will be trimmed.
+    /** Reads a float from the user via. the console.
      *
      * @param prompt The input prompt message to show the user.
      * @return The user input float.
@@ -159,8 +158,7 @@ public class UserInput {
         return inputLong;
     }
 
-    /** Reads a long from the user via. the console.<br/>
-     *  Input will be trimmed.
+    /** Reads a long from the user via. the console.
      *
      * @param prompt The input prompt message to show the user.
      * @return The user input long.
@@ -183,8 +181,7 @@ public class UserInput {
         return (int)readLong(prompt, criteria, errorMessage);
     }
 
-    /** Reads an int from the user via. the console.<br/>
-     *  Input will be trimmed.
+    /** Reads an int from the user via. the console.
      *
      * @param prompt The input prompt message to show the user.
      * @return The user input int.
@@ -207,8 +204,7 @@ public class UserInput {
         return (short)readLong(prompt, criteria, errorMessage);
     }
 
-    /** Reads a short from the user via. the console.<br/>
-     *  Input will be trimmed.
+    /** Reads a short from the user via. the console.
      *
      * @param prompt The input prompt message to show the user.
      * @return The user input short.
@@ -231,8 +227,7 @@ public class UserInput {
         return (byte)readLong(prompt, criteria, errorMessage);
     }
 
-    /** Reads a byte from the user via. the console.<br/>
-     *  Input will be trimmed.
+    /** Reads a byte from the user via. the console.
      *
      * @param prompt The input prompt message to show the user.
      * @return The user input byte.
@@ -241,4 +236,37 @@ public class UserInput {
         return readByte(prompt, NO_CRITERIA_LONG, "");
     }
     //endregion
+
+    //region Booleans
+    /** Reads a boolean from the user via. the console.
+     *
+     * @param prompt The input prompt message to show the user.
+     * @param trueInputs A list of lowercase inputs which are to be considered as the 'true' inputs.<br/>
+     *                   Starting substrings are also considered to be true. E.g. "yes" also accepts "y".
+     *                   Uppercase variants are also accepted.
+     * @return The user input boolean.
+     */
+    public static boolean readBoolean(String prompt, String[] trueInputs) {
+        String input = readString(prompt).toLowerCase();
+        for (String trueInput : trueInputs) {
+            if (input.startsWith(trueInput.substring(0, 1))) {
+                return true;
+            }
+        }
+
+        // Must mean none of trueInputs matched.
+        return false;
+    }
+
+    /** Reads a boolean from the user via. the console.<br/>
+     *  Accepts "yes", "true", and "ja" as 'true', as well as their starting substrings ("yes" -> "y").
+     *
+     * @param prompt The input prompt message to show the user.
+     * @return The user input boolean.
+     */
+    public static boolean readBoolean(String prompt) {
+        final String[] DEFAULT_TRUE_INPUTS = {"yes", "true", "ja"};
+        return readBoolean(prompt, DEFAULT_TRUE_INPUTS);
+    }
+    //endregion Booleans
 }
