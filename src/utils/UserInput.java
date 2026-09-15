@@ -82,7 +82,9 @@ public class UserInput {
                     System.out.print(errorMessage);
                 }
             } catch (NumberFormatException e) {
-                System.out.print(errorMessage);
+                System.out.print(!errorMessage.isEmpty()
+                                 ? errorMessage
+                                 : "(Input must be a floating-point number!)");
             }
         } while (!inputMeetsCriteria);
 
@@ -148,7 +150,9 @@ public class UserInput {
                     System.out.print(errorMessage);
                 }
             } catch (NumberFormatException e) {
-                System.out.print(errorMessage);
+                System.out.print(!errorMessage.isEmpty()
+                                 ? errorMessage
+                                 : "(Input must be an integer!)");
             }
         } while (!inputMeetsCriteria);
 
