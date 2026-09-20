@@ -3,15 +3,24 @@ package utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Locale;
 import java.util.function.Predicate;
 
 public class UserInput {
     private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ERROR_COLOUR = ANSI_YELLOW;
+
     private static final Predicate<String> NO_CRITERIA_STRING = (String) -> true;
     private static final Predicate<Double> NO_CRITERIA_DOUBLE = (Double) -> true;
     private static final Predicate<Long> NO_CRITERIA_LONG = (Double) -> true;
+
+    /** Returns the text ANSI-coloured. **/
+    private static String colourText(String text, String ansiColour) {
+        return String.format("%s%s%s", ansiColour, text, ANSI_RESET);
+    }
 
     //region String
     /** Reads a String from the user via. the console.<br/>
@@ -34,7 +43,7 @@ public class UserInput {
 
                 inputMeetsCriteria = criteria.test(input);
                 if (!inputMeetsCriteria) {
-                    System.out.print(errorMessage);
+                    System.out.print(colourText(errorMessage, ERROR_COLOUR));
                 }
             } catch (IOException e) {
                 System.out.println("There was an IOException reading your input. Try again.");
@@ -76,16 +85,18 @@ public class UserInput {
         do {
             try {
                 String inputString = readString(prompt);
+                inputString = inputString.replace(',', '.'); // To support German separator.
                 inputDouble = Double.parseDouble(inputString);
 
                 inputMeetsCriteria = criteria.test(inputDouble);
                 if (!inputMeetsCriteria) {
-                    System.out.print(errorMessage);
+                    System.out.print(colourText(errorMessage, ERROR_COLOUR));
                 }
             } catch (NumberFormatException e) {
-                System.out.print(!errorMessage.isEmpty()
-                                 ? errorMessage
-                                 : "(Input must be a floating-point number!)");
+                System.out.print(colourText(!errorMessage.isEmpty()
+                                            ? errorMessage
+                                            : "Input must be a floating-point number, without thousands separator!",
+                                            ERROR_COLOUR));
             }
         } while (!inputMeetsCriteria);
 
@@ -146,12 +157,14 @@ public class UserInput {
 
                 inputMeetsCriteria = criteria.test(inputLong);
                 if (!inputMeetsCriteria) {
-                    System.out.print(errorMessage);
+                    System.out.print(colourText(errorMessage, ERROR_COLOUR));
                 }
             } catch (NumberFormatException e) {
-                System.out.print(!errorMessage.isEmpty()
-                                 ? errorMessage
-                                 : "(Input must be an integer!)");
+
+                System.out.print(colourText(!errorMessage.isEmpty()
+                                            ? errorMessage
+                                            : "Input must be an integer!",
+                                            ERROR_COLOUR));
             }
         } while (!inputMeetsCriteria);
 
