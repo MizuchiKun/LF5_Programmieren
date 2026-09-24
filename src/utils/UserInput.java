@@ -95,7 +95,7 @@ public class UserInput {
             } catch (NumberFormatException e) {
                 System.out.print(colourText(!errorMessage.isEmpty()
                                             ? errorMessage
-                                            : "Input must be a floating-point number, without thousands separator!",
+                                            : "Input must be a floating-point number, without thousands separator!\n",
                                             ERROR_COLOUR));
             }
         } while (!inputMeetsCriteria);
@@ -163,7 +163,7 @@ public class UserInput {
 
                 System.out.print(colourText(!errorMessage.isEmpty()
                                             ? errorMessage
-                                            : "Input must be an integer!",
+                                            : "Input must be an integer!\n",
                                             ERROR_COLOUR));
             }
         } while (!inputMeetsCriteria);
