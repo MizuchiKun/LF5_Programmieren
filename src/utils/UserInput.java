@@ -3,6 +3,7 @@ package utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.function.Predicate;
 
 public class UserInput {
@@ -282,4 +283,17 @@ public class UserInput {
         return readBoolean(prompt, DEFAULT_TRUE_INPUTS);
     }
     //endregion Booleans
+
+    //region Arrays
+//    public static <T> T[] readArray(Type dataType,
+//                                      byte length,
+//                                      String prompt,
+//                                      Predicate<T> criteria,
+//                                      String errorMessage) {
+//        var array = new T[]{};
+//        for (byte i = 0; i < length; i++) {
+//
+//        }
+//    }
+    //endregion
 }
