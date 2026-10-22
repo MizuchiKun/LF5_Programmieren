@@ -3,7 +3,7 @@ package utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Set;
+import java.lang.reflect.Array;
 import java.util.function.Predicate;
 
 public class UserInput {
@@ -55,7 +55,7 @@ public class UserInput {
      * @param prompt The prompt to show to the user.
      * @param criteria The criteria by which to check the input. E.g. numerical range.
      * @param criteriaErrorMessage The error message to show when the criteria were not met.
-     * @return An object of generic type T, which contains the user's input.
+     * @return An object of the supplied generic type T, which contains the user's input.
      * @param <T> The generic type of which to read a value from the user.
      */
     private static <T> T readValue(Class<T> type,
@@ -79,7 +79,8 @@ public class UserInput {
             } catch (IllegalArgumentException e) {
                 System.out.print(colourText(!criteriaErrorMessage.isEmpty()
                                                     ? criteriaErrorMessage
-                                                    : "The input must be a " + type.getSimpleName(),
+                                                    : String.format("The input must be a %s!",
+                                                                    type.getSimpleName()),
                                             ERROR_COLOUR));
             }
         }
@@ -361,15 +362,96 @@ public class UserInput {
     //endregion Booleans
 
     //region Arrays
-//    public static <T> T[] readArray(Type dataType,
-//                                      byte length,
-//                                      String prompt,
-//                                      Predicate<T> criteria,
-//                                      String errorMessage) {
-//        var array = new T[]{};
-//        for (byte i = 0; i < length; i++) {
-//
-//        }
-//    }
+    /** Reads an array from the user via the console.
+     *
+     * @param type The type of the array.
+     * @param length The length of the array.
+     * @param prompt The prompt message to show the user for each element. <br/>
+     *               Needs to have one "%d" in it, which will be filled with incrementing values starting from 1 (1,2,3,4,etc.).
+     * @param criteria The criteria for the entered user input.
+     * @param criteriaErrorMessage A message to be displayed to the user if their input did not meet the criteria.
+     * @return An array of the supplied type T, which contains the user's input array.
+     * @param <T> The generic type of which to read a value from the user.
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T[] readArray(Class<T> type,
+                                    byte length,
+                                    String prompt,
+                                    Predicate<T> criteria,
+                                    String criteriaErrorMessage) {
+        T[] array = (T[]) Array.newInstance(type, length);
+        for (byte i = 0; i < length; i++) {
+            array[i] = readValue(type,
+                                 String.format(prompt, i+1),
+                                 criteria,
+                                 criteriaErrorMessage);
+        }
+        return array;
+    }
+
+    /** Reads an array from the user via the console.
+     *
+     * @param type The type of the array.
+     * @param lengthPrompt The prompt message to show the user to ask for the array's length.
+     * @param valuePrompt The prompt message to show the user for each element. <br/>
+     *                    Needs to have one "%d" in it, which will be filled with incrementing values starting from 1 (1,2,3,4,etc.).
+     * @param criteria The criteria for the entered user input.
+     * @param criteriaErrorMessage A message to be displayed to the user if their input did not meet the criteria.
+     * @return An array of the supplied type T, which contains the user's input array.
+     * @param <T> The generic type of which to read a value from the user.
+     */
+    public static <T> T[] readArray(Class<T> type,
+                                    String lengthPrompt,
+                                    String valuePrompt,
+                                    Predicate<T> criteria,
+                                    String criteriaErrorMessage) {
+        byte length = readByte(lengthPrompt,
+                               (Byte b) -> b > 0,
+                               "Length must be greater than 0!");
+
+        return readArray(type,
+                         length,
+                         valuePrompt,
+                         criteria,
+                         criteriaErrorMessage);
+    }
+
+    /** Reads an array from the user via the console.
+     *
+     * @param type The type of the array.
+     * @param length The length of the array.
+     * @param prompt The prompt message to show the user for each element. <br/>
+     *               Needs to have one "%d" in it, which will be filled with incrementing values starting from 1 (1,2,3,4,etc.).
+     * @return An array of the supplied type T, which contains the user's input array.
+     * @param <T> The generic type of which to read a value from the user.
+     */
+    public static <T> T[] readArray(Class<T> type,
+                                    byte length,
+                                    String prompt) {
+        return readArray(type,
+                         length,
+                         prompt,
+                         (T t) -> true,
+                         "");
+    }
+
+    /** Reads an array from the user via the console.
+     *
+     * @param type The type of the array.
+     * @param lengthPrompt The prompt message to show the user to ask for the array's length.
+     * @param valuePrompt The prompt message to show the user for each element. <br/>
+     *                    Needs to have one "%d" in it, which will be filled with incrementing values starting from 1 (1,2,3,4,etc.).
+     * @return An array of the supplied type T, which contains the user's input array.
+     * @param <T> The generic type of which to read a value from the user.
+     */
+    public static <T> T[] readArray(Class<T> type,
+                                    String lengthPrompt,
+                                    String valuePrompt) {
+        return readArray(type,
+                         lengthPrompt,
+                         valuePrompt,
+                         (T t) -> true,
+                         "");
+    }
     //endregion
 }
