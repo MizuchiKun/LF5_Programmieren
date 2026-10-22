@@ -3,7 +3,7 @@ package utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
+import java.util.Set;
 import java.util.function.Predicate;
 
 public class UserInput {
@@ -21,6 +21,75 @@ public class UserInput {
     /** Returns the text ANSI-coloured. **/
     private static String colourText(String text, String ansiColour) {
         return String.format("%s%s%s", ansiColour, text, ANSI_RESET);
+    }
+
+    /** Parses the input to the given type.<br/>
+     *  <br/>
+     *  Supports: String, Character, Byte, Short, Integer, Long, Float, Double, Boolean.
+     *
+     * @param input The input string to parse.
+     * @param type The type to parse input to.
+     * @return A 'T' object parsed from input.
+     * @param <T> The generic type to parse input to.
+     * @throws IllegalArgumentException Passed generic type is not supported.
+     */
+    private static <T> T parseValue(String input, Class<T> type)
+            throws IllegalArgumentException {
+        Object result;
+        if (type == String.class)          result = input;
+        else if (type == Character.class)  result = input.charAt(0);
+        else if (type == Byte.class)       result = Byte.parseByte(input);
+        else if (type == Short.class)      result = Short.parseShort(input);
+        else if (type == Integer.class)    result = Integer.parseInt(input);
+        else if (type == Long.class)       result = Long.parseLong(input);
+        else if (type == Float.class)      result = Float.parseFloat(input.replace(',', '.'));  // To support German format.
+        else if (type == Double.class)     result = Double.parseDouble(input.replace(',', '.'));  // To support German format.
+        else if (type == Boolean.class)    result = Boolean.parseBoolean(input);
+        else throw new IllegalArgumentException("Unsupported input type: " + type);
+
+        return type.cast(result);
+    }
+
+    /** Reads a value from the user via. console.<br/>
+     *  <br/>
+     *  Supported types: All the primitives and String.
+     *
+     * @param type The type to which the input will be parsed.
+     * @param prompt The prompt to show to the user.
+     * @param criteria The criteria by which to check the input. E.g. numerical range.
+     * @param criteriaErrorMessage The error message to show when the criteria were not met.
+     * @param parseErrorMessage The error message to show when there was a parsing error. <br/>
+     *                          E.g. int expected but float supplied.
+     * @return An object of generic type T, which contains the user's input.
+     * @param <T> The generic type of which to read a value from the user.
+     */
+    private static <T> T readValue(Class<T> type,
+                                   String prompt,
+                                   Predicate<T> criteria,
+                                   String criteriaErrorMessage,
+                                   String parseErrorMessage) {
+        //TODO: wrap this function in more explicitly named functions, as to make them more explicit in code
+        while (true) {
+            try {
+                System.out.print(prompt);
+                String input = READER.readLine().trim();
+
+                T parsedInput = parseValue(input, type);
+
+                boolean inputMeetsCriteria = criteria.test(parsedInput);
+                if (inputMeetsCriteria) {
+                    return parsedInput;
+                }
+                System.out.print(colourText(criteriaErrorMessage, ERROR_COLOUR));
+            } catch (IOException e) {
+                System.out.println("There was an IOException reading your input. Try again.");
+            } catch (IllegalArgumentException e) {
+                System.out.print(colourText(!criteriaErrorMessage.isEmpty()
+                                            ? criteriaErrorMessage
+                                            : parseErrorMessage,
+                                 ERROR_COLOUR));
+            }
+        }
     }
 
     //region String
