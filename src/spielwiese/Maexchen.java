@@ -9,7 +9,7 @@ import static java.lang.Math.min;
 
 public class Maexchen {
     public static void main(String[] args) {
-        Predicate<Long> validRoll = (Long roll) -> 1 <= roll && roll <= 6;
+        Predicate<Byte> validRoll = (Byte roll) -> 1 <= roll && roll <= 6;
         final String INVALID_ROLL_ERROR = "Augenzahl muss zwischen 1 und 6 sein.\n";
         byte roll1 = UserInput.readByte("Erste Augenzahl? ",
                                         validRoll,
