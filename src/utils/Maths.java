@@ -1,7 +1,6 @@
 package utils;
 
-import java.lang.Math;
-
+@SuppressWarnings("unused")
 public class Maths {
     /** Sums the given values. */
     public static double sum(double[] values) {

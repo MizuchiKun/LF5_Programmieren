@@ -1,5 +1,6 @@
 package utils;
 
+@SuppressWarnings("unused")
 public class Printer {
     /** Prints a table of the given data.<br/>
      *  If printLines, the headers will be separated from the data by a line, and the columns will

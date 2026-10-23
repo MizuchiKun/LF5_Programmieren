@@ -3,6 +3,7 @@ package utils;
 /** Contains all the ANSI colour codes, as well as methods for the 256-colours and truecolors/RGB.<br/>
  *  (#AI I did use Claude to generate this, since I was too lazy to write all the codes myself.)
  */
+@SuppressWarnings("unused")
 public class AnsiColour {
 
     private AnsiColour() {}

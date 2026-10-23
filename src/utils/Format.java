@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
+@SuppressWarnings("unused")
 public class Format {
     //region Colour formatting
     /** Colours text via ANSI codes.<br/>

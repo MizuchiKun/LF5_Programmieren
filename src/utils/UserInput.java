@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.util.function.Predicate;
 
+@SuppressWarnings("unused")
 public class UserInput {
     private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
