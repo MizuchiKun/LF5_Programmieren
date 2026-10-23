@@ -1,5 +1,6 @@
 package utils;
 
+@SuppressWarnings("unused")
 public class Comparison {
     /** Checks if the two values are equal/close. <br/>
      *  They're considered close when their difference is smaller than the given relTolerance or absTolerance.
