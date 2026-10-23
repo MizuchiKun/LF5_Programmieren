@@ -5,6 +5,20 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 public class Format {
+    //region Colour formatting
+    /** Colours text via ANSI codes.<br/>
+     *  Alias for {@link AnsiColour#colour(String, String)}
+     *
+     * @param text The text to colour.
+     * @param ansiColour The colour to use.
+     * @return The coloured text.
+     */
+    public static String colour(String text, String ansiColour) {
+        return AnsiColour.colour(text, ansiColour);
+    }
+    //endregion
+
+    //region Number formatting
     /** Formats the given number based on the arguments.<br/>
      *  (Uses the German decimal format symbols.)
      *
@@ -101,4 +115,5 @@ public class Format {
 
         return formatBuilder.toString();
     }
+    //endregion
 }

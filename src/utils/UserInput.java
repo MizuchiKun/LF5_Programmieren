@@ -9,15 +9,7 @@ import java.util.function.Predicate;
 public class UserInput {
     private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_YELLOW = "\u001B[33m";
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ERROR_COLOUR = ANSI_YELLOW;
-
-    /** Returns the text ANSI-coloured. **/
-    private static String colourText(String text, String ansiColour) {
-        return String.format("%s%s%s", ansiColour, text, ANSI_RESET);
-    }
+    private static final String ERROR_COLOUR = AnsiColour.YELLOW;
 
     //region Generic base read method.
     /** Parses the input to the given type.<br/>
@@ -73,15 +65,15 @@ public class UserInput {
                 if (inputMeetsCriteria) {
                     return parsedInput;
                 }
-                System.out.print(colourText(criteriaErrorMessage, ERROR_COLOUR));
+                System.out.print(Format.colour(criteriaErrorMessage, ERROR_COLOUR));
             } catch (IOException e) {
                 System.out.println("There was an IOException reading your input. Try again.");
             } catch (IllegalArgumentException e) {
-                System.out.print(colourText(!criteriaErrorMessage.isEmpty()
-                                                    ? criteriaErrorMessage
-                                                    : String.format("The input must be a %s!",
-                                                                    type.getSimpleName()),
-                                            ERROR_COLOUR));
+                System.out.print(Format.colour(!criteriaErrorMessage.isEmpty()
+                                                 ? criteriaErrorMessage
+                                                 : String.format("The input must be a %s!",
+                                                                 type.getSimpleName()),
+                                               ERROR_COLOUR));
             }
         }
     }
