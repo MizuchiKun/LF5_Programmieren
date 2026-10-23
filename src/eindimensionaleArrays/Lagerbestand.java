@@ -1,12 +1,13 @@
 package eindimensionaleArrays;
 
+import utils.Format;
 import utils.Printer;
 import utils.UserInput;
 
 public class Lagerbestand {
     public static void main(String[] args) {
         final byte UNIQUE_ITEM_COUNT = UserInput.readByte("Wie viele verschiedene Artikel sind im Lager? ",
-                                                          (Long l) -> l > 0,
+                                                          (Byte b) -> b > 0,
                                                           "Anzahl muss >0 sein.\n");
         String[] itemNames = new String[UNIQUE_ITEM_COUNT];
         float[] itemPrices = new float[UNIQUE_ITEM_COUNT];
@@ -27,8 +28,8 @@ public class Lagerbestand {
             totalPrice += itemCounts[i] * itemPrices[i];
         }
 
-        System.out.printf("Im Lager befinden sich %d Artikel im Wert von %s.\n",
+        System.out.printf("Im Lager befinden sich %d Artikel im Wert von %s €.\n",
                           totalCount,
-                          Printer.GERMAN_EURO_FORMAT.format(totalPrice));
+                          Format.toGermanNumber(totalPrice));
     }
 }

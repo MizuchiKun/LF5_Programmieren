@@ -5,7 +5,7 @@ import utils.UserInput;
 public class Umkehrung {
     public static void main(String[] args) {
         byte CHAR_COUNT = UserInput.readByte("Wie viele Buchstaben soll das Array enthalten? ",
-                                             (Long l) -> l > 0,
+                                             (Byte b) -> b > 0,
                                              "Anzahl muss >0 sein!");
         char[] inputChars = new char[CHAR_COUNT];
         for (byte i = 0; i < CHAR_COUNT; i++) {
