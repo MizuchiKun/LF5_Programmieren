@@ -4,14 +4,9 @@ import utils.UserInput;
 
 public class Umkehrung {
     public static void main(String[] args) {
-        byte CHAR_COUNT = UserInput.readByte("Wie viele Buchstaben soll das Array enthalten? ",
-                                             (Byte b) -> b > 0,
-                                             "Anzahl muss >0 sein!");
-        char[] inputChars = new char[CHAR_COUNT];
-        for (byte i = 0; i < CHAR_COUNT; i++) {
-            inputChars[i] = UserInput.readString(String.format("Buchstaben %d eingeben: ",
-                                                               i+1)).charAt(0);
-        }
+        char[] inputChars = UserInput.readArray(Character.class,
+                                                "Wie viele Buchstaben soll das Array enthalten? ",
+                                                "Buchstaben %d eingeben: ");
 
         char[] reversedInput = new char[inputChars.length];
         for (byte i = 0; i < inputChars.length; i++) {
