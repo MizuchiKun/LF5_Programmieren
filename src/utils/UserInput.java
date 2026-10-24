@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Array;
+import java.util.Map;
 import java.util.function.Predicate;
 
 @SuppressWarnings("unused")
@@ -13,9 +14,31 @@ public class UserInput {
     private static final String ERROR_COLOUR = AnsiColour.YELLOW;
 
     //region Generic base read method.
+    /** Maps the primitive types to their wrapper classes. **/
+    private static final Map<Class<?>, Class<?>> WRAPPERS = Map.of(
+            boolean.class, Boolean.class,
+            byte.class,    Byte.class,
+            char.class,    Character.class,
+            short.class,   Short.class,
+            int.class,     Integer.class,
+            long.class,    Long.class,
+            float.class,   Float.class,
+            double.class,  Double.class);
+
+    /** Wraps/converts the primitive types in their wrapper types.
+     *
+     * @param type The primitive type.
+     * @return The corresponding wrapper type.
+     * @param <T> The primitive's wrapper type.
+     */
+    @SuppressWarnings("unchecked")
+    private static <T> Class<T> wrap(Class<T> type) {
+        return (Class<T>) WRAPPERS.get(type);
+    }
+
     /** Parses the input to the given type.<br/>
      *  <br/>
-     *  Supports: String, Character, Byte, Short, Integer, Long, Float, Double, Boolean.
+     *  Supports: String, Character, Byte, Short, Integer, Long, Float, Double.
      *
      * @param input The input string to parse.
      * @param type The type to parse input to.
@@ -25,19 +48,23 @@ public class UserInput {
      */
     private static <T> T parseValue(String input, Class<T> type)
             throws IllegalArgumentException {
-        Object result;
-        if (type == String.class)          result = input;
-        else if (type == Character.class)  result = input.charAt(0);
-        else if (type == Byte.class)       result = Byte.parseByte(input);
-        else if (type == Short.class)      result = Short.parseShort(input);
-        else if (type == Integer.class)    result = Integer.parseInt(input);
-        else if (type == Long.class)       result = Long.parseLong(input);
-        else if (type == Float.class)      result = Float.parseFloat(input.replace(',', '.'));  // To support German format.
-        else if (type == Double.class)     result = Double.parseDouble(input.replace(',', '.'));  // To support German format.
-        else if (type == Boolean.class)    result = Boolean.parseBoolean(input);
-        else throw new IllegalArgumentException("Unsupported input type: " + type);
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("Input must not be empty!");
+        }
+        Class<T> wrapperType = wrap(type);
 
-        return type.cast(result);
+        Object result;
+        if (wrapperType == String.class)          result = input;
+        else if (wrapperType == Character.class)  result = input.charAt(0);
+        else if (wrapperType == Byte.class)       result = Byte.parseByte(input);
+        else if (wrapperType == Short.class)      result = Short.parseShort(input);
+        else if (wrapperType == Integer.class)    result = Integer.parseInt(input);
+        else if (wrapperType == Long.class)       result = Long.parseLong(input);
+        else if (wrapperType == Float.class)      result = Float.parseFloat(input.replace(',', '.'));  // To support German format.
+        else if (wrapperType == Double.class)     result = Double.parseDouble(input.replace(',', '.'));  // To support German format.
+        else throw new IllegalArgumentException("Unsupported input type: " + type.getSimpleName());
+
+        return wrapperType.cast(result);
     }
 
     /** Reads a value from the user via console.<br/>
@@ -72,7 +99,7 @@ public class UserInput {
             } catch (IllegalArgumentException e) {
                 System.out.print(Format.colour(!criteriaErrorMessage.isEmpty()
                                                  ? criteriaErrorMessage
-                                                 : String.format("The input must be a %s!",
+                                                 : String.format("The input must be a %s!\n",
                                                                  type.getSimpleName()),
                                                ERROR_COLOUR));
             }
@@ -137,7 +164,7 @@ public class UserInput {
     public static char readChar(String prompt,
                                 Predicate<Character> criteria,
                                 String criteriaErrorMessage) {
-        return readValue(Character.class,
+        return readValue(char.class,
                          prompt,
                          criteria,
                          criteriaErrorMessage);
@@ -150,7 +177,7 @@ public class UserInput {
      * @return The user input char.
      */
     public static char readChar(String prompt) {
-        return readValue(Character.class,
+        return readValue(char.class,
                          prompt);
     }
     //endregion
@@ -167,7 +194,7 @@ public class UserInput {
     public static float readFloat(String prompt,
                                   Predicate<Float> criteria,
                                   String criteriaErrorMessage) {
-        return readValue(Float.class,
+        return readValue(float.class,
                          prompt,
                          criteria,
                          criteriaErrorMessage);
@@ -179,7 +206,7 @@ public class UserInput {
      * @return The user input float.
      */
     public static float readFloat(String prompt) {
-        return readValue(Float.class,
+        return readValue(float.class,
                          prompt);
     }
 
@@ -194,7 +221,7 @@ public class UserInput {
     public static double readDouble(String prompt,
                                     Predicate<Double> criteria,
                                     String criteriaErrorMessage) {
-        return readValue(Double.class,
+        return readValue(double.class,
                          prompt,
                          criteria,
                          criteriaErrorMessage);
@@ -206,7 +233,7 @@ public class UserInput {
      * @return The user input double.
      */
     public static double readDouble(String prompt) {
-        return readValue(Double.class,
+        return readValue(double.class,
                          prompt);
     }
     //endregion
@@ -223,7 +250,7 @@ public class UserInput {
     public static byte readByte(String prompt,
                                 Predicate<Byte> criteria,
                                 String criteriaErrorMessage) {
-        return readValue(Byte.class,
+        return readValue(byte.class,
                          prompt,
                          criteria,
                          criteriaErrorMessage);
@@ -235,7 +262,7 @@ public class UserInput {
      * @return The user input byte.
      */
     public static byte readByte(String prompt) {
-        return readValue(Byte.class,
+        return readValue(byte.class,
                          prompt);
     }
 
@@ -250,7 +277,7 @@ public class UserInput {
     public static short readShort(String prompt,
                                   Predicate<Short> criteria,
                                   String criteriaErrorMessage) {
-        return readValue(Short.class,
+        return readValue(short.class,
                          prompt,
                          criteria,
                          criteriaErrorMessage);
@@ -262,7 +289,7 @@ public class UserInput {
      * @return The user input short.
      */
     public static short readShort(String prompt) {
-        return readValue(Short.class,
+        return readValue(short.class,
                          prompt);
     }
 
@@ -277,7 +304,7 @@ public class UserInput {
     public static int readInt(String prompt,
                               Predicate<Integer> criteria,
                               String criteriaErrorMessage) {
-        return readValue(Integer.class,
+        return readValue(int.class,
                          prompt,
                          criteria,
                          criteriaErrorMessage);
@@ -289,7 +316,7 @@ public class UserInput {
      * @return The user input int.
      */
     public static int readInt(String prompt) {
-        return readValue(Integer.class,
+        return readValue(int.class,
                          prompt);
     }
 
@@ -304,7 +331,7 @@ public class UserInput {
     public static long readLong(String prompt,
                                 Predicate<Long> criteria,
                                 String criteriaErrorMessage) {
-        return readValue(Long.class,
+        return readValue(long.class,
                          prompt,
                          criteria,
                          criteriaErrorMessage);
@@ -316,7 +343,7 @@ public class UserInput {
      * @return The user input long.
      */
     public static long readLong(String prompt) {
-        return readValue(Long.class,
+        return readValue(long.class,
                          prompt);
     }
     //endregion
@@ -367,19 +394,20 @@ public class UserInput {
      * @param <T> The generic type of which to read a value from the user.
      */
     @SuppressWarnings("unchecked")
-    public static <T> T[] readArray(Class<T> type,
-                                    byte length,
-                                    String prompt,
-                                    Predicate<T> criteria,
-                                    String criteriaErrorMessage) {
-        T[] array = (T[]) Array.newInstance(type, length);
+    public static <T, A> A readArray(Class<T> type,
+                                     byte length,
+                                     String prompt,
+                                     Predicate<T> criteria,
+                                     String criteriaErrorMessage) {
+        Object array = Array.newInstance(type, length);
         for (byte i = 0; i < length; i++) {
-            array[i] = readValue(type,
-                                 String.format(prompt, i+1),
-                                 criteria,
-                                 criteriaErrorMessage);
+            T value = readValue(type,
+                                String.format(prompt, i+1),
+                                criteria,
+                                criteriaErrorMessage);
+            Array.set(array, i, value); // unboxes for primitive arrays
         }
-        return array;
+        return (A) array;
     }
 
     /** Reads an array from the user via the console.
@@ -393,14 +421,14 @@ public class UserInput {
      * @return An array of the supplied type T, which contains the user's input array.
      * @param <T> The generic type of which to read a value from the user.
      */
-    public static <T> T[] readArray(Class<T> type,
-                                    String lengthPrompt,
-                                    String valuePrompt,
-                                    Predicate<T> criteria,
-                                    String criteriaErrorMessage) {
+    public static <T, A> A readArray(Class<T> type,
+                                     String lengthPrompt,
+                                     String valuePrompt,
+                                     Predicate<T> criteria,
+                                     String criteriaErrorMessage) {
         byte length = readByte(lengthPrompt,
-                               (Byte b) -> b > 0,
-                               "Length must be greater than 0!");
+                               b -> b > 0,
+                               "Length must be greater than 0!\n");
 
         return readArray(type,
                          length,
@@ -418,7 +446,7 @@ public class UserInput {
      * @return An array of the supplied type T, which contains the user's input array.
      * @param <T> The generic type of which to read a value from the user.
      */
-    public static <T> T[] readArray(Class<T> type,
+    public static <T, A> A readArray(Class<T> type,
                                     byte length,
                                     String prompt) {
         return readArray(type,
@@ -437,7 +465,7 @@ public class UserInput {
      * @return An array of the supplied type T, which contains the user's input array.
      * @param <T> The generic type of which to read a value from the user.
      */
-    public static <T> T[] readArray(Class<T> type,
+    public static <T, A> A readArray(Class<T> type,
                                     String lengthPrompt,
                                     String valuePrompt) {
         return readArray(type,
