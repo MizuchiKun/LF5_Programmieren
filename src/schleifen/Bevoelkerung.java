@@ -8,15 +8,15 @@ public class Bevoelkerung {
         boolean doRestartCalculation = false;
         do {
             float initialPopulation = UserInput.readFloat("Bitte die aktuelle Populationsgröße in Milliarden eingeben: ",
-                                                          (Double input) -> input > 0,
+                                                          input -> input > 0,
                                                           "Population muss >0 sein!\n");
             float growthRateYearly = UserInput.readFloat("Bitte den jährlichen Zuwachs in Prozent eingeben: ")
                     / 100f;
             short durationInYears = UserInput.readShort("Bitte die Laufzeit der Prognose in Jahren eingeben: ",
-                                                        (Long input) -> input > 0,
+                                                        input -> input > 0,
                                                         "Laufzeit muss >0 sein!\n");
             byte floatDigits = UserInput.readByte("Bitte die Anzahl der anzuzeigenden Nachkommastellen eingeben: ",
-                                                  (Long input) -> input >= 0,
+                                                  input -> input >= 0,
                                                   "Nachkommastellen müssen >= 0 sein!\n");
 
             System.out.println("\nJahr\tAnfangspopulation\tZuwachs\t\tEndpopulation");
