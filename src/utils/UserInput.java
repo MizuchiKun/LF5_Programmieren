@@ -17,8 +17,9 @@ public class UserInput {
     /** Maps the primitive types to their wrapper classes. **/
     private static final Map<Class<?>, Class<?>> WRAPPERS = Map.of(
             boolean.class, Boolean.class,
-            byte.class,    Byte.class,
             char.class,    Character.class,
+            String.class,  String.class,
+            byte.class,    Byte.class,
             short.class,   Short.class,
             int.class,     Integer.class,
             long.class,    Long.class,
