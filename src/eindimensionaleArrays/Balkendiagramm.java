@@ -19,14 +19,14 @@ public class Balkendiagramm {
 
     public static void main(String[] args) {
         final byte LENGTH = UserInput.readByte("Wie viele Kandidaten sind noch im Rennen? ",
-                                               (Long l) -> l > 0,
+                                               (Byte b) -> b > 0,
                                                "Länge muss größer als 0 sein!\n");
         System.out.println("Erfasse jetzt die prozentuale Verteilung des Votings (in Prozent): ");
 
         float[] votePercentages = new float[LENGTH];
         for (int i = 0; i < votePercentages.length; i++) {
             votePercentages[i] = UserInput.readFloat(String.format("Kandidat %d: ", i+1),
-                                                     (Double d) -> d >= 0,
+                                                     (Float f) -> f >= 0,
                                                      "Prozentsatz darf nicht negativ sein!\n");
         }
 

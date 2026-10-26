@@ -42,7 +42,7 @@ public class MatheSoftware {
     private static void division() {
         float operand1 = UserInput.readFloat("Bitte gebe die erste Zahl ein: ");
         float operand2 = UserInput.readFloat("Bitte gebe die zweite Zahl ein: ",
-                                             (Double x) -> x != 0,
+                                             x -> x != 0,
                                              "Nenner darf nicht 0 sein!\n");
         System.out.printf("%.2f / %.2f = %.2f\n", operand1, operand2, operand1 / operand2);
     }
@@ -57,7 +57,7 @@ public class MatheSoftware {
     /** Prompts for one operand and prints the result of the square rooting. */
     private static void squareRooting() {
         float operand = UserInput.readFloat("Bitte gebe die Zahl ein: ",
-                                            (Double x) -> x >= 0,
+                                            x -> x >= 0,
                                             "Radikand darf nicht negativ sein!\n");
         System.out.printf("√(%.2f) = %.2f\n", operand, Math.sqrt(operand));
     }
