@@ -6,23 +6,23 @@ import java.util.Arrays;
 
 public class Temperatur {
     public static void main(String[] args) {
-        float[] temperatures = new float[7];
+        float[] temperatures = UserInput.readArray(float.class,
+                                                   (byte)7,
+                                                   "Temperatur an Tag %d? ");
+
         float average = 0;
         float minTemperature = Float.POSITIVE_INFINITY;
         float maxTemperature = Float.NEGATIVE_INFINITY;
         float maxDailyDifference = 0;
         System.out.println(temperatures.length);
         for (byte i = 0; i < temperatures.length; i++) {
-            float input = UserInput.readFloat(String.format("Temperatur an Tag %d? ",
-                                                            i+1));
-            temperatures[i] = input;
-            average += input;
+            average += temperatures[i];
 
-            minTemperature = Math.min(input, minTemperature);
-            maxTemperature = Math.max(input, maxTemperature);
+            minTemperature = Math.min(temperatures[i], minTemperature);
+            maxTemperature = Math.max(temperatures[i], maxTemperature);
 
             if (i == 0) { continue; }
-            float dailyDifference = Math.abs(input - temperatures[i-1]);
+            float dailyDifference = Math.abs(temperatures[i] - temperatures[i-1]);
             maxDailyDifference = Math.max(dailyDifference, maxDailyDifference);
         }
 

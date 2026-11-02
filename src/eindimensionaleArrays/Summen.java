@@ -5,24 +5,20 @@ import utils.UserInput;
 public class Summen {
     public static void main(String[] args) {
         System.out.println("Bitte geb ein Array von ints ein.");
-        final byte LENGTH = UserInput.readByte("Wie viele Werte? ",
-                                               (Byte b) -> b > 0,
-                                               "Länge muss größer als 0 sein!\n");
+        short[] numbers = UserInput.readArray(byte.class,
+                                              "Wie viele Werte? ",
+                                              "Wert %d eingeben: ");
 
-        short[] numbers = new short[LENGTH];
         byte evenCount = 0;
         short evenSum = 0;
         byte oddCount = 0;
         short oddSum = 0;
         for (int i = 0; i < numbers.length; i++) {
-            short input = UserInput.readShort(String.format("Wert %d eingeben: ", i+1));
-            numbers[i] = input;
-
-            if (input % 2 == 0) {
-                evenSum += input;
+            if (numbers[i] % 2 == 0) {
+                evenSum += numbers[i];
                 evenCount++;
             } else {
-                oddSum += input;
+                oddSum += numbers[i];
                 oddCount++;
             }
         }
