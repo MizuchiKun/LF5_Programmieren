@@ -21,14 +21,12 @@ public class Verdoppeln {
 
     public static void main(String[] args) {
         System.out.println("Bitte geb ein Array von floats ein.");
-        final byte LENGTH = UserInput.readByte("Wie viele Werte? ",
-                                               (Byte b) -> b > 0,
-                                               "Länge muss größer als 0 sein!\n");
+        float[] numbers = UserInput.readArray(float.class,
+                                              "Wie viele Werte? ",
+                                              "Wert %d eingeben: ");
 
-        float[] numbers = new float[LENGTH];
-        float[] doubled = new float[LENGTH];
+        float[] doubled = new float[numbers.length];
         for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = UserInput.readFloat(String.format("Wert %d eingeben: ", i+1));
             doubled[i] = 2 * numbers[i];
         }
 
